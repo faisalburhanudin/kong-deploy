@@ -46,11 +46,6 @@ docker-compose up -d konga
 
 # run my-service
 docker-compose up -d my-service
-
-# configure my-service to kong gateway
-# if you want step by step, check section below
-python deploy.py
-
 ```
 
 ## Register service to kong step by step
@@ -67,7 +62,9 @@ python add_route.py
 curl -i -X GET --url http://localhost:8000/ --header 'Host: my-service.dev'
 ```
 
-## Rate limit
+## Plugins
+
+### Rate limit
 
 ```bash
 # enable rate limit plugin, in this script 5 request/minute
@@ -92,4 +89,13 @@ curl -i -X GET --url http://localhost:8000/ --header 'Host: my-service.dev'
 # Server: kong/1.1.1
 
 # {"message":"API rate limit exceeded"}
+```
+
+### JWT
+
+```bash
+# enable jwt plugin
+python enable_jwt.py
+
+
 ```
