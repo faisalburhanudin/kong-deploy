@@ -66,3 +66,30 @@ python add_route.py
 # Check request via gateway
 curl -i -X GET --url http://localhost:8000/ --header 'Host: my-service.dev'
 ```
+
+## Rate limit
+
+```bash
+# enable rate limit plugin, in this script 5 request/minute
+python enable_ratelimit.py
+
+# check request 6 request
+curl -i -X GET --url http://localhost:8000/ --header 'Host: my-service.dev'
+curl -i -X GET --url http://localhost:8000/ --header 'Host: my-service.dev'
+curl -i -X GET --url http://localhost:8000/ --header 'Host: my-service.dev'
+curl -i -X GET --url http://localhost:8000/ --header 'Host: my-service.dev'
+curl -i -X GET --url http://localhost:8000/ --header 'Host: my-service.dev'
+curl -i -X GET --url http://localhost:8000/ --header 'Host: my-service.dev'
+
+# 00/ --header 'Host: my-service.dev'
+# HTTP/1.1 429 Too Many Requests
+# Date: Tue, 02 Apr 2019 06:49:07 GMT
+# Content-Type: application/json; charset=utf-8
+# Connection: keep-alive
+# Content-Length: 37
+# X-RateLimit-Limit-minute: 5
+# X-RateLimit-Remaining-minute: 0
+# Server: kong/1.1.1
+
+# {"message":"API rate limit exceeded"}
+```
