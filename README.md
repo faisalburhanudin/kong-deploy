@@ -46,4 +46,23 @@ docker-compose up -d konga
 
 # run my-service
 docker-compose up -d my-service
+
+# configure my-service to kong gateway
+# if you want step by step, check section below
+python deploy.py
+
+```
+
+## Register service to kong step by step
+
+```bash
+# add service
+python add_service.py
+
+# add a route
+python add_route.py
+
+
+# Check request via gateway
+curl -i -X GET --url http://localhost:8000/ --header 'Host: my-service.dev'
 ```
